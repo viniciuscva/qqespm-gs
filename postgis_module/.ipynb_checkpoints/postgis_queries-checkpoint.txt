@@ -1,0 +1,37 @@
+# search by keyword
+select * from uk_pois where concat(name,' ',amenity,' ',shop,' ',tourism,' ',landuse,' ',leisure,' ',building,' ',office,' ',government) like '%bakery%' limit 5;
+
+
+
+
+# search of e-match with only the distance constraint
+with tb1 as
+(select * from uk_pois where concat(name,' ',amenity,' ',shop,' ',tourism,' ',landuse,' ',leisure,' ',building,' ',office,' ',government) like '%bank%')
+,tb2 as
+(select * from uk_pois where concat(name,' ',amenity,' ',shop,' ',tourism,' ',landuse,' ',leisure,' ',building,' ',office,' ',government) like '%school%')
+select tb1.osm_id, tb2.osm_id, tb1.name, tb2.name, tb1.amenity, tb2.amenity
+from tb1, tb2
+where ST_Distance(tb1.geometry, tb2.geometry) between 500 and 10000 limit 5;
+
+
+
+# search of qq-e-match (distance and connectivity constraint)
+with tb1 as
+(select * from uk_pois where concat(name,' ',amenity,' ',shop,' ',tourism,' ',landuse,' ',leisure,' ',building,' ',office,' ',government) like '%bank%')
+,tb2 as
+(select * from uk_pois where concat(name,' ',amenity,' ',shop,' ',tourism,' ',landuse,' ',leisure,' ',building,' ',office,' ',government) like '%school%')
+select tb1.osm_id as tb1_id, tb2.osm_id as tb2_id, tb1.name as tb1_name, tb2.name as tb2_name, tb1.amenity as tb1_amenity, tb2.amenity as tb2_amenity, tb1.building as tb1_building, tb2.building as tb2_building, left(st_astext(tb1.geometry),15) as tb1_geom, left(st_astext(tb2.geometry),15) as tb2_geom
+from tb1, tb2
+where ST_DistanceSphere(st_centroid(tb1.geometry), st_centroid(tb2.geometry)) between 0 and 1000 
+and ST_Intersects(tb1.geometry, tb2.geometry)
+and tb1.osm_id != tb2.osm_id
+and tb1.name is not null
+and tb2.name is not null
+and tb1.amenity != tb2.amenity
+limit 5;
+
+
+# example of top-k nearest neighbors query
+SELECT name, geom <-> ST_MakePoint( -118.291995, 36.578581 ) AS dist
+FROM geonames
+ORDER BY dist LIMIT 10;
