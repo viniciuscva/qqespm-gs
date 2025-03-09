@@ -7,17 +7,6 @@ import qqespm_sql_exp as qqsql3
 totalmem = psutil.virtual_memory().total/(1024*1024)
 shared_buffer_size = qqsql3.get_shared_buffers_size()
 
-# def get_shared_buffers_size(config_filename = 'config/general_connector.ini'):
-#     sql = """select cast(setting as numeric) * 8192/(1024*1024) as shared_buffer_size from  
-#     pg_settings where name='shared_buffers';"""
-
-#     conn = qqsql3.establish_postgis_connection(config_filename=config_filename)
-#     cur = conn.cursor()
-#     cur.execute(sql)
-#     shared_buffer_size = float(cur.fetchall()[0][0])
-#     cur.close()
-#     conn.close()
-#     return shared_buffer_size
 
 def getProcessesInfo(username = None, command_keyword = None, as_dataframe = True):
     '''
@@ -86,10 +75,6 @@ def get_total_memory_usage_for_qqespm():
         total_memory_usage_qqespm = 0
     return total_memory_usage_qqespm
 
-#print(getProcessesInfo(username='elasticsearch').shape)
-#print(getProcessesInfoWithPS(username='elasticsearch').shape)
-#getProcessesInfo(username='elasticsearch') # -> Dataframe with processes resource use information
-
 
 def getProcessesInfoWithPS(username = None):
     ps = subprocess.Popen(['ps', '-e', 'aux'], stdout=subprocess.PIPE).communicate()[0]
@@ -115,4 +100,3 @@ def getProcessesInfoWithPS(username = None):
     df['RSS'] = df['RSS'].astype(float)
     return df
 
-# getProcessesInfoWithPS().sort_values(by='%MEM', ascending=False)[['%CPU','%MEM','VSZ','RSS']].sum()

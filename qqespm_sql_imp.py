@@ -5,7 +5,7 @@ from time import time
 import psutil
 from configparser import ConfigParser
 from itertools import chain
-import qqespm_module as qq
+import qqespm_quadtree_CGA as qq
 from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 
 import resource_monitoring

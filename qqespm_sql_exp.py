@@ -101,7 +101,7 @@ def test_connection(filename=DEFAULT_CONFIG_FILENAME):
             conn.close()
             print('Database connection closed.')
 
-def get_shared_buffers_size(config_filename = 'config/general_connector.ini'):
+def get_shared_buffers_size(config_filename = 'config/database.ini'):
     sql = """select cast(setting as numeric) * 8192/(1024*1024) as shared_buffer_size from  
     pg_settings where name='shared_buffers';"""
 

@@ -14,13 +14,19 @@ import pickle
 import gc
 from time import sleep
 
-def writelog(string, file = 'log_comparison_london_new.txt'):
+dataset_file = 'london_pois_5500_100perc.csv'
+ilquadtrees_dir = 'ilquadtrees_london_5500'
+base_dataset_filename = 'data/london_pois_5500'
+base_elastic_indexname = 'london_pois_5500_index'
+base_postgresql_config_filename = 'config/london_pois_5500'
+
+def writelog(string, file = 'log_comparison_london.txt'):
     with open(file, 'a') as f:
         f.write(string)
 
 ################################################################
 # Keywords statistics
-pois = qq2.read_df_csv(data_dir = 'data/london_pois_5500_100perc.csv')
+pois = qq2.read_df_csv(data_dir = f'data/{dataset_file}')
 
 amenity_totals = pois.amenity.value_counts()
 shop_totals = pois.shop.value_counts()
@@ -47,7 +53,7 @@ writelog('Size of dataset:' + str(pois.shape[0]))
 
 ################################################################
 # Loading spatial patterns
-with open('spatial_patterns_for_experiments_london2.3small3.pkl', 'rb') as f:
+with open('spatial_patterns_for_experiments_london.pkl', 'rb') as f:
     spatial_patterns = pickle.load(f)
 
 print('Total spatial patterns:', len(spatial_patterns))
@@ -62,11 +68,6 @@ executions_comparison = pd.DataFrame(columns = ['repetition', 'sp_index', 'spati
 ################################################################
 # Preparing datasets information
 percs = ['20perc','40perc','60perc','80perc','100perc']
-ilquadtrees_dir = 'ilquadtrees_london_5500'
-
-base_dataset_filename = 'data/london_pois_5500'
-base_elastic_indexname = 'london_pois_5500_index'
-base_postgresql_config_filename = 'config/london_pois_5500'
 
 datasets_info = {'QQ-Quadtree': {}, 'QQ-Elastic': {}, 'QQ-SQL': {}}
 for perc in percs:
@@ -133,7 +134,7 @@ for rep in range(1, num_repetitions+1):
                 memory_usage_qq
             ]
             executions_comparison.loc[len(executions_comparison)] = row
-            executions_comparison.to_csv('executions_comparison_london_new.csv', mode = 'a', index = False, header = False)
+            executions_comparison.to_csv('executions_comparison_london.csv', mode = 'a', index = False, header = False)
             executions_comparison = executions_comparison[0:0]
             totals_of_solutions.append(total_solutions_qq)
 
@@ -168,7 +169,7 @@ for rep in range(1, num_repetitions+1):
                 memory_usage_qq1
             ]
             executions_comparison.loc[len(executions_comparison)] = row
-            executions_comparison.to_csv('executions_comparison_london_new.csv', mode = 'a', index = False, header = False)
+            executions_comparison.to_csv('executions_comparison_london.csv', mode = 'a', index = False, header = False)
             executions_comparison = executions_comparison[0:0]
             totals_of_solutions.append(total_solutions_qq1)
 
@@ -203,7 +204,7 @@ for rep in range(1, num_repetitions+1):
                 memory_usage_qq
             ]
             executions_comparison.loc[len(executions_comparison)] = row
-            executions_comparison.to_csv('executions_comparison_london_new.csv', mode = 'a', index = False, header = False)
+            executions_comparison.to_csv('executions_comparison_london.csv', mode = 'a', index = False, header = False)
             executions_comparison = executions_comparison[0:0]
             totals_of_solutions.append(total_solutions_qq)
 
@@ -239,7 +240,7 @@ for rep in range(1, num_repetitions+1):
                 memory_usage_qqs
             ]
             executions_comparison.loc[len(executions_comparison)] = row
-            executions_comparison.to_csv('executions_comparison_london_new.csv', mode = 'a', index = False, header = False)
+            executions_comparison.to_csv('executions_comparison_london.csv', mode = 'a', index = False, header = False)
             executions_comparison = executions_comparison[0:0]
             totals_of_solutions.append(total_solutions_qqs)
         
@@ -274,7 +275,7 @@ for rep in range(1, num_repetitions+1):
                 memory_usage_el
             ]
             executions_comparison.loc[len(executions_comparison)] = row
-            executions_comparison.to_csv('executions_comparison_london_new.csv', mode = 'a', index = False, header = False)
+            executions_comparison.to_csv('executions_comparison_london.csv', mode = 'a', index = False, header = False)
             executions_comparison = executions_comparison[0:0]
             totals_of_solutions.append(total_solutions_el)
 
@@ -310,7 +311,7 @@ for rep in range(1, num_repetitions+1):
                 memory_usage_sql
             ]
             executions_comparison.loc[len(executions_comparison)] = row
-            executions_comparison.to_csv('executions_comparison_london_new.csv', mode = 'a', index = False, header = False)
+            executions_comparison.to_csv('executions_comparison_london.csv', mode = 'a', index = False, header = False)
             executions_comparison = executions_comparison[0:0]
             totals_of_solutions.append(total_solutions_sql)
             
@@ -347,7 +348,7 @@ for rep in range(1, num_repetitions+1):
                 memory_usage_sql
             ]
             executions_comparison.loc[len(executions_comparison)] = row
-            executions_comparison.to_csv('executions_comparison_london_new.csv', mode = 'a', index = False, header = False)
+            executions_comparison.to_csv('executions_comparison_london.csv', mode = 'a', index = False, header = False)
             executions_comparison = executions_comparison[0:0]
             totals_of_solutions.append(total_solutions_sql)
 

@@ -8,6 +8,8 @@ This repository contains the code implementations for the algorithms proposed in
 
 ## Reproducibility Guide
 
+Having PostgreSQL with PostGIS and Elasticsearch locally installed is required for running the scripts. Also, the python libs dependencies are specified in `requirements.txt`.
+
 Follow the steps in `data/README.md` file to get two base POIs datasets in CSV files (`london_pois_5500.csv` for Experiment 1 from Paper and `london_pois_bbox.csv` for Experiment 2 from Paper).
 
 
@@ -36,21 +38,24 @@ Load datasets into tables in PostGIS database system:
 
 Generate spatial patterns for queries:
 * Follow instructions in `generate_spatial_patterns.ipynb` notebook
+    * For Experiment 1, use `dataset_file = 'london_pois_5500_100perc.csv'` in this notebook
+    * For Experiment 2, use `dataset_file = 'london_pois_bbox_100perc.csv'` in this notebook
 
 
-Increase the max result window on Elasticsearch:
-* `python update_max_result_window_elastic.py`
+Increase the max result window on Elasticsearch to a value greater than or equal to the dataset size.
 
-Setup `shared_buffers` parameter in postgresql.conf to 25% of the RAM size
+It's recommended to set up `shared_buffers` parameter in postgresql.conf to 25% of the RAM size.
 
 
 Start the experiments
-* `python compare_modules_experiments.py`
-* This script writes to files `log_comparison_london_new.txt` (a basic logs file) and `executions_comparison_london_new.csv` (a log of all query execution times along with their respective query configuration, thus useful for future performance analysis and visualization). 
+* `python compare_modules.py`
+    * For Experiment 1, set `dataset_file = 'london_pois_5500_100perc.csv'`, `ilquadtrees_dir = 'ilquadtrees_london_5500'`, `base_dataset_filename = 'data/london_pois_5500'`, `base_elastic_indexname = 'london_pois_5500_index'` and `base_postgresql_config_filename = 'config/london_pois_5500'` at the start of this script
+    * For Experiment 2, set `dataset_file = 'london_pois_bbox_100perc.csv'`, `ilquadtrees_dir = 'ilquadtrees_london_pois_bbox'`, `base_dataset_filename = 'data/london_pois_bbox'`, `base_elastic_indexname = 'london_pois_bbox_index'` and `base_postgresql_config_filename = 'config/london_pois_bbox'` at the start of this script
+* This script writes to files `log_comparison_london_new.txt` (a basic logs file) and `executions_comparison_london.csv` (a log of all query execution times along with their respective query configuration, thus useful for future performance analysis and visualization). 
 
 
 Generate performance comparison visualizations:
-* Follow instructions in notebook `comparing_modules.ipynb`.
+* Follow instructions in notebook `comparing_modules.ipynb`
 
 
 
