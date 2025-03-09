@@ -5,7 +5,8 @@ Download geographic features (including POIs data) from OpenStreetMap, for the [
 
 Upload the data to a PostgreSQL local database with the geospatial extension PostGIS using the [osm2pgsql](https://osm2pgsql.org/) cli tool:
 
-```osm2pgsql -H localhost -d osm_london_pois -U postgres -P 5432 -S default.style --hstore -W -F flatnode_osm2pgsql.cache --slim greater-london-latest.osm.pbf
+```
+osm2pgsql -H localhost -d osm_london_pois -U postgres -P 5432 -S default.style --hstore -W -F flatnode_osm2pgsql.cache --slim greater-london-latest.osm.pbf
 ```
 
 Filter geographic features to only POIs having the tags amenity, shop, tourism, landuse, leisure, building, and geographically limited by bounding box extension by following steps in file `filter_pois_by_tag_and_bbox_region.sql`. 
