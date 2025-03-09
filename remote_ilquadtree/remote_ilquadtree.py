@@ -79,12 +79,7 @@ class RemoteILQuadtree:
     def search_circle(self, keyword, center, radius):
         result = []
         bbox = get_bbox_by_dist_radius(center, radius, self.metric)
-        #for keyword in keywords:
         if keyword in self.quadtrees:
-            #     for item in self.quadtrees[keyword].intersect(bbox):
-            #         item_center_lon, item_center_lat = item.centroid()
-            #         if lat_lon_distance(item_center_lat, item_center_lon, center[1], center[0], self.metric) <= radius:
-            #             result.append(item)
             candidate_objs = np.array(self.quadtrees[keyword].intersect(bbox))
             if len(candidate_objs) == 0:
                 return []
@@ -97,22 +92,12 @@ class RemoteILQuadtree:
         bbox = get_bbox_by_dist_radius(center, radius, self.metric)
         if keyword in self.quadtrees:
             candidate_objs = self.quadtrees[keyword].intersect(bbox)
-
-            # for item in candidate_objs:
-            #     item_center_lon, item_center_lat = item.centroid()
-            #     if lat_lon_distance(item_center_lat, item_center_lon, center[1], center[0], self.metric) <= radius:
-            #         return True
                 
             tests = filter(lambda item: lat_lon_distance(*reversed(item.centroid()), center[1], center[0], self.metric) <= radius, candidate_objs)
             for test in tests:
                 if test:
                     return True
-            # candidate_objs = np.array(self.quadtrees[keyword].intersect(bbox))
-            # if len(candidate_objs) == 0:
-            #     return False
-            # is_within_radius_partial = partial(is_within_radius, center = center, radius = radius)
-            # is_within_radius_vec = np.vectorize(is_within_radius_partial)
-            # return np.any(is_within_radius_vec(candidate_objs))
+   
         return False
     
     def get_obj_by_keyword_and_osmid_costly(self, keyword, osmid):

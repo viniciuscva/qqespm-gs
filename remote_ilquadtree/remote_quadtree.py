@@ -221,10 +221,6 @@ class RemoteQuadtree:
             else:
                 candidate_intersecting_objects.extend(node.get_inner_objects_recursive_costly())
 
-        #else:
-        # for obj in candidate_intersecting_objects:
-        #     if point_is_inside_bbox(obj.centroid(), bbox):
-        #         intersecting_objects.append(obj)
 
         intersecting_objects.extend(list(filter(lambda obj: point_is_inside_bbox(obj.centroid(), bbox), candidate_intersecting_objects)))
   

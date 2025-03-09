@@ -12,3 +12,5 @@ osm2pgsql -H localhost -d osm_london_pois -U postgres -P 5432 -S default.style -
 Filter geographic features to only POIs having the tags amenity, shop, tourism, landuse, leisure, building, and geographically limited by bounding box extension by following steps in file `filter_pois_by_tag_and_bbox_region.sql`. 
 After that you will ideally have two base POI datasets in CSV (`london_pois_5500.csv` and `london_pois_bbox.csv`), that are used in query performance experiments.
 
+Follow the steps in notebook `prepare_london_dataset.ipynb` to add buffers to the polygonal geometries delimiting the POIs for both datasets.
+
