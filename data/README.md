@@ -1,4 +1,4 @@
-The experiments encompass running QQ-SPM queries on subsets of a dataset of POIs from London, UK, gathered from OpenStreetMap. The following steps guide on how to download a similar extraction from OpenStreetMap to reproduce experiments.
+The experiments encompass running QQ-SPM queries on subsets of a dataset of POIs from London, UK, gathered from OpenStreetMap. The following steps guide on how to download a similar extraction from [OpenStreetMap](https://www.openstreetmap.org/) to reproduce experiments.
 
 Download geographic features (including POIs data) from OpenStreetMap, for the [Greater London](https://download.geofabrik.de/europe/united-kingdom/england/greater-london.html) region. 
 

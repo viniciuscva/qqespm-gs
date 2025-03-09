@@ -8,22 +8,30 @@ This repository contains the code implementations for the algorithms proposed in
 
 ## Reproducibility Guide
 
-Follow the steps in `data/README.md` file to get two base POIs datasets in CSV files (`london_pois_5500.csv` for Experiment 1 from Paper and `london_pois_bbox.csv` for Experiment2 from Paper).
+Follow the steps in `data/README.md` file to get two base POIs datasets in CSV files (`london_pois_5500.csv` for Experiment 1 from Paper and `london_pois_bbox.csv` for Experiment 2 from Paper).
 
 
 Create smaller subsets of the full datasets of POIs (for dataset scalability experiments) and index in ILQuadtrees on disk:
 * Create the folder `ilquadtrees`; inside this folder, create the folders 20perc, 40perc, 60perc, 80perc, 100perc
 * Follow instructions in `create_csv_and_ilq_subdatasets.ipynb` notebook
+    * For Experiment 1, use `data_dir = 'data/london_pois_5500.csv'`, `ilq_base_folder = 'ilquadtrees_london_5500'` and `base_csv_filename = 'data/london_pois_5500'` in this notebook.
+    * For Experiment 2, use `data_dir = 'data/london_pois_bbox.csv'`, `ilq_base_folder = 'ilquadtrees_london_pois_bbox'` and `base_csv_filename = 'data/london_pois_bbox'` in this notebook.
 
 
 Index the datasets in Elasticsearch:
 * Go to `elastic_module` folder in the project repository
 * Follow instructions in `generate_geojson.ipynb notebook`
+    * For Experiment 1, use `base_dataset_filename = 'london_pois_5500'` in this notebook
+    * For Experiment 2, use `base_dataset_filename = 'london_pois_bbox'` in this notebook
 * Follow instructions in `geojson_to_elasticsearch.ipynb` notebook
+    * For Experiment 1, use `base_index_name = 'london_pois_5500_index'` and `base_dataset_filename = 'london_pois_5500'` in this notebook
+    * For Experiment 2, use `base_index_name = 'london_pois_bbox_index'` and `base_dataset_filename = 'london_pois_bbox'` in this notebook.
 
 
-Load datasets to tables in PostGIS database system:
-* Follow instructions in `notebook create_dbs_postgres.ipynb`.
+Load datasets into tables in PostGIS database system:
+* Follow instructions in notebook `create_dbs_postgres.ipynb`
+    * For Experimen1 1, use `base_db_name = 'london_pois_5500'` and `base_csv_filename = 'london_pois_5500'` in this notebook
+    * For Experiment 2, use `base_db_name = 'london_pois_bbox'` and `base_csv_filename = 'london_pois_bbox'` in this notebook.
 
 
 Generate spatial patterns for queries:
