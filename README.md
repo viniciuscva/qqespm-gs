@@ -52,6 +52,8 @@ Start the experiments
     * For Experiment 1, set `dataset_file = 'london_pois_5500_100perc.csv'`, `ilquadtrees_dir = 'ilquadtrees_london_5500'`, `base_dataset_filename = 'data/london_pois_5500'`, `base_elastic_indexname = 'london_pois_5500_index'` and `base_postgresql_config_filename = 'config/london_pois_5500'` at the start of this script
     * For Experiment 2, set `dataset_file = 'london_pois_bbox_100perc.csv'`, `ilquadtrees_dir = 'ilquadtrees_london_pois_bbox'`, `base_dataset_filename = 'data/london_pois_bbox'`, `base_elastic_indexname = 'london_pois_bbox_index'` and `base_postgresql_config_filename = 'config/london_pois_bbox'` at the start of this script
 * This script writes to files `log_comparison_london_new.txt` (a basic logs file) and `executions_comparison_london.csv` (a log of all query execution times along with their respective query configuration, thus useful for future performance analysis and visualization). 
+    * For Experiment 1, rename the output generated CSV file to `executions_comparison_london_experiment1.csv`.
+    * For Experiment 2, rename the output generated CSV file to `executions_comparison_london_experiment2.csv`.
 
 
 Generate performance comparison visualizations:
