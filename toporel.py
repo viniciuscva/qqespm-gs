@@ -22,10 +22,6 @@ def get_ndim_of_geometry(geom):
 
 def compute_relation(geomA, geomB):
     rel_AB = geomA.relate(geomB)
-    # if any([one_toporel_satisfies_the_other(rel_AB, r) for r in relate_patterns['equals']]):
-    #     return 'equals'
-    # if any([one_toporel_satisfies_the_other(rel_AB, r) for r in relate_patterns['touches']]):
-    #     return 'touches'
     if any([one_toporel_satisfies_the_other(rel_AB, r) for r in relate_patterns['covers']]):
         return 'contains'
     if any([one_toporel_satisfies_the_other(rel_AB, r) for r in relate_patterns['coveredby']]):
@@ -38,14 +34,6 @@ def compute_relation(geomA, geomB):
 def compute_all_relations(geomA, geomB):
     rel_AB = geomA.relate(geomB)
     all_relations = []
-    # if any([one_toporel_satisfies_the_other(rel_AB, r) for r in relate_patterns['equals']]):
-    #     all_relations.append('equals')
-    # if any([one_toporel_satisfies_the_other(rel_AB, r) for r in relate_patterns['touches']]):
-    #     all_relations.append('touches')
-    # if any([one_toporel_satisfies_the_other(rel_AB, r) for r in relate_patterns['overlaps']]):
-    #     all_relations.append('overlaps')
-        # if any([one_toporel_satisfies_the_other(rel_AB, r) for r in relate_patterns['crosses']]):
-    #     all_relations.append('crosses')
     if any([one_toporel_satisfies_the_other(rel_AB, r) for r in relate_patterns['covers']]):
         all_relations.append('contains')
     if any([one_toporel_satisfies_the_other(rel_AB, r) for r in relate_patterns['coveredby']]):
@@ -61,7 +49,7 @@ def get_average_side_length(poly):
         return 0
     return poly.length/len(set(poly.exterior.coords))
 
-def apply_default_buffer(poly, fraction = 0.10, point_buffer_size = 0.00034395064773051537):# the mean of all the average side lengths for the polygons in the dataset of Paraiba
+def apply_default_buffer(poly, fraction = 0.10, point_buffer_size = 0.00034395064773051537):# the mean of all the average side lengths for the polygons in the dataset
     poly = poly.convex_hull.simplify(0.05)
     if poly.geom_type == 'Point':
         buffer_size = point_buffer_size
@@ -70,38 +58,6 @@ def apply_default_buffer(poly, fraction = 0.10, point_buffer_size = 0.0003439506
     poly = poly.buffer(buffer_size, quad_segs = 1)
     return poly
 
-# def rel_equals(geomA, geomB):
-#     return any([relate_pattern(geomA, geomB, relation) for relation in ['T*F**FFF*']])
-
-# def rel_disjoint(geomA, geomB):
-#     return any([relate_pattern(geomA, geomB, relation) for relation in ['FF*FF****']])
-
-# def rel_touches(geomA, geomB):
-#     return any([relate_pattern(geomA, geomB, relation) for relation in ['FT*******', 'F**T*****', 'F***T****']])
-
-# def rel_contains(geomA, geomB):
-#     return any([relate_pattern(geomA, geomB, relation) for relation in ['T*****FF*']])
-
-# def rel_covers(geomA, geomB):
-#     return any([relate_pattern(geomA, geomB, relation) for relation in ['T*****FF*', '*T****FF*', '***T**FF*', '****T*FF*']])
-
-# def rel_intersects(geomA, geomB):
-#     return any([relate_pattern(geomA, geomB, relation) for relation in ['T********', '*T*******', '***T*****', '****T****']])
-
-# def rel_within(geomA, geomB):
-#     return any([relate_pattern(geomA, geomB, relation) for relation in ['T*F**F***']])
-
-# def rel_coveredby(geomA, geomB):
-#     return any([relate_pattern(geomA, geomB, relation) for relation in ['T*F**F***', '*TF**F***', '**FT*F***', '**F*TF***']])
-
-# def rel_crosses(geomA, geomB):
-#     ndimA = get_ndim_of_geometry(geomA)
-#     ndimB = get_ndim_of_geometry(geomB)
-#     return ((ndimA != ndimB) or ndimA==1 or ndimB==1) and \
-#         (any([relate_pattern(geomA, geomB, relation) for relation in ['T*T******', 'T*****T**', '0********']]))
-
-# def rel_partially_overlaps(geomA, geomB):
-#     return (geomA.geom_type == geomB.geom_type) and (any([relate_pattern(geomA, geomB, relation) for relation in ['T*T***T**', '1*T***T**']]))
 
 def generalize_dimension(dimension):
     # dimension is a single character, representing the size of an 2D intersection in the DE9IM model

@@ -21,7 +21,7 @@ relations_to_postgis_functions = {
     'intersects': 'ST_Intersects'
 }
 
-DEFAULT_CONFIG_FILENAME = 'config/london_pois_bbox_100perc.ini'
+DEFAULT_CONFIG_FILENAME = 'config/london_pois_bbox.ini'
 current_config_filename = None
 conn = None
 COLUMN_NAMES = None

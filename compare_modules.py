@@ -14,7 +14,7 @@ import pickle
 import gc
 from time import sleep
 
-dataset_file = 'london_pois_5500_100perc.csv'
+dataset_file = 'london_pois_5500.csv'
 ilquadtrees_dir = 'ilquadtrees_london_5500'
 base_dataset_filename = 'data/london_pois_5500'
 base_elastic_indexname = 'london_pois_5500_index'

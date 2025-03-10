@@ -36,7 +36,7 @@ class hashabledict(dict):
 
 
 
-def read_df_csv(data_dir = os.path.dirname(os.path.realpath(__file__)) + '/data/pois_paraiba5.csv'):
+def read_df_csv(data_dir = os.path.dirname(os.path.realpath(__file__)) + '/data/london_pois_5500.csv'):
     pois = pd.read_csv(data_dir,  low_memory=False)
     pois['geometry'] = geopandas.GeoSeries.from_wkt(pois['geometry'])
     pois['centroid'] = geopandas.GeoSeries.from_wkt(pois['centroid'])
@@ -49,7 +49,7 @@ def get_df_surrounding_bbox(pois, delta = 0.001):
     pois.drop(['lon','lat'], axis = 1, inplace = True)
     return surrounding_bbox
 
-def generate_remote_ilquadtree(data_dir = os.path.dirname(os.path.realpath(__file__)) + '/data/pois_paraiba5.csv', ilq_folder = 'ilq_files', 
+def generate_remote_ilquadtree(data_dir = os.path.dirname(os.path.realpath(__file__)) + '/data/london_pois_5500.csv', ilq_folder = 'ilq_files', 
                                total_bbox_ilq = None, max_depth = 3, max_items = 128, 
                                metric='geodesic', keyword_columns = ['amenity','shop','tourism'], insertion_fraction = 1.0):
     ilq = generate_ram_ilquadtree(data_dir = data_dir, total_bbox_ilq = total_bbox_ilq, max_depth = max_depth, max_items = max_items, 
@@ -57,7 +57,7 @@ def generate_remote_ilquadtree(data_dir = os.path.dirname(os.path.realpath(__fil
     ilq_remote = remote_ilquadtree.RemoteILQuadtree(ilq, ilq_folder, metric=metric)
     return ilq_remote
 
-def generate_ram_ilquadtree(data_dir = os.path.dirname(os.path.realpath(__file__)) + '/data/pois_paraiba5.csv', total_bbox_ilq = None, max_depth = 3, max_items = 128, 
+def generate_ram_ilquadtree(data_dir = os.path.dirname(os.path.realpath(__file__)) + '/data/london_pois_5500.csv', total_bbox_ilq = None, max_depth = 3, max_items = 128, 
                                metric='geodesic', keyword_columns = ['amenity','shop','tourism'], insertion_fraction = 1.0):
     pois = read_df_csv(data_dir=data_dir)
     if total_bbox_ilq is None:
@@ -1151,7 +1151,7 @@ def get_edges_order(edges_values_dict, initial_edges_order, sp, alternated: bool
 
 def QQESPM(sp, ilquadtree: remote_ilquadtree.RemoteILQuadtree = None, metric = 'geodesic', ilq_dir = ilq_object_path, 
         ilq_get_method = 'load', 
-        data_dir = os.path.dirname(os.path.realpath(__file__)) + '/data/pois_paraiba5.csv', parallel=False, alternated=False, debug = False):
+        data_dir = os.path.dirname(os.path.realpath(__file__)) + '/data/london_pois_5500.csv', parallel=False, alternated=False, debug = False):
     global remote_ilqs
     global current_ilq_dir
     global remote_ilq

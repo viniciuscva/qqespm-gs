@@ -10,7 +10,7 @@ import multiprocessing
 from functools import partial
 import resource_monitoring
 
-#default_index = "paraiba-pois-osm-index5"
+#default_index = "london-pois-osm-index"
 current_index_name = None
 es = None
 

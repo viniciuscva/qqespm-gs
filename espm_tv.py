@@ -28,7 +28,7 @@ current_ilq_dir = None
 #from networkx.drawing.nx_agraph import graphviz_layout
 #import math
 
-def read_df_csv(data_dir = os.path.dirname(os.path.realpath(__file__)) + '/data/pois_paraiba5.csv'):
+def read_df_csv(data_dir = os.path.dirname(os.path.realpath(__file__)) + '/data/london_pois_5500.csv'):
     import geopandas
     import pandas as pd
     pois = pd.read_csv(data_dir,  low_memory=False)
@@ -44,7 +44,7 @@ def get_df_surrounding_bbox(pois, delta = 0.001):
     pois.drop(['lon','lat'], axis = 1, inplace = True)
     return surrounding_bbox
 
-def generate_remote_ilquadtree(data_dir = os.path.dirname(os.path.realpath(__file__)) + '/data/pois_paraiba5.csv', ilq_folder = 'ilq_files', 
+def generate_remote_ilquadtree(data_dir = os.path.dirname(os.path.realpath(__file__)) + '/data/london_pois_5500.csv', ilq_folder = 'ilq_files', 
                                total_bbox_ilq = None, max_depth = 3, max_items = 128, 
                                metric='geodesic', keyword_columns = ['amenity','shop','tourism','landuse','leisure','building'], insertion_fraction = 1.0):
     ilq = generate_ram_ilquadtree(data_dir = data_dir, total_bbox_ilq = total_bbox_ilq, max_depth = max_depth, max_items = max_items, 
@@ -57,7 +57,7 @@ def load_remote_ilquadtree(ilq_object_path):
         remote_ilq = pickle.load(f)
     return remote_ilq
 
-def generate_ram_ilquadtree(data_dir = os.path.dirname(os.path.realpath(__file__)) + '/data/pois_paraiba5.csv', total_bbox_ilq = None, max_depth = 3, max_items = 128, 
+def generate_ram_ilquadtree(data_dir = os.path.dirname(os.path.realpath(__file__)) + '/data/london_pois_5500.csv', total_bbox_ilq = None, max_depth = 3, max_items = 128, 
                                metric='geodesic', keyword_columns = ['amenity','shop','tourism','landuse','leisure','building'], insertion_fraction = 1.0):
     pois = read_df_csv(data_dir=data_dir)
     if total_bbox_ilq is None:
@@ -910,7 +910,7 @@ def partial_solution_satisfies_connectivities(solution, edges):
 
 
 def QQ_SIMPLE(sp, ilquadtree=None, metric='geodesic', ilq_dir=ilq_object_path, ilq_get_method='load', 
-              data_dir=os.path.dirname(os.path.realpath(__file__)) + '/data/pois_paraiba5.csv', parallel=False, topological_heuristics=True, debug = False):
+              data_dir=os.path.dirname(os.path.realpath(__file__)) + '/data/london_pois_5500.csv', parallel=False, topological_heuristics=True, debug = False):
     global remote_ilqs
     global current_ilq_dir
     global remote_ilq

@@ -34,6 +34,6 @@ WHERE  geometry @
 
 -- Download the CSV data from these tables to get the base datasets for the experiments:
 
-COPY (SELECT  osm_id, name, amenity, shop, tourism, landuse, leisure, building, data_type, ST_AsText(geometry) as geometry from pois_5500m) TO 'london_pois_5500.csv'  WITH DELIMITER ';' CSV HEADER;
+COPY (SELECT  osm_id, name, amenity, shop, tourism, landuse, leisure, building, data_type, ST_AsText(geometry) as geometry from pois_5500m) TO 'london_pois_5500_raw.csv'  WITH DELIMITER ';' CSV HEADER;
 
-COPY (SELECT  osm_id, name, amenity, shop, tourism, landuse, leisure, building, data_type, ST_AsText(geometry) as geometry from pois_12000m) TO 'london_pois_bbox.csv'  WITH DELIMITER ';' CSV HEADER;
+COPY (SELECT  osm_id, name, amenity, shop, tourism, landuse, leisure, building, data_type, ST_AsText(geometry) as geometry from pois_12000m) TO 'london_pois_bbox_raw.csv'  WITH DELIMITER ';' CSV HEADER;

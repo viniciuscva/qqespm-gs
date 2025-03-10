@@ -38,8 +38,8 @@ Load datasets into tables in PostGIS database system:
 
 Generate spatial patterns for queries:
 * Follow instructions in `generate_spatial_patterns.ipynb` notebook
-    * For Experiment 1, use `dataset_file = 'london_pois_5500_100perc.csv'` in this notebook
-    * For Experiment 2, use `dataset_file = 'london_pois_bbox_100perc.csv'` in this notebook
+    * For Experiment 1, use `dataset_file = 'london_pois_5500.csv'` in this notebook
+    * For Experiment 2, use `dataset_file = 'london_pois_bbox.csv'` in this notebook
 
 
 Increase the max result window on Elasticsearch to a value greater than or equal to the dataset size.
@@ -49,8 +49,8 @@ It's recommended to set up `shared_buffers` parameter in postgresql.conf to 25% 
 
 Start the experiments
 * `python compare_modules.py`
-    * For Experiment 1, set `dataset_file = 'london_pois_5500_100perc.csv'`, `ilquadtrees_dir = 'ilquadtrees_london_5500'`, `base_dataset_filename = 'data/london_pois_5500'`, `base_elastic_indexname = 'london_pois_5500_index'` and `base_postgresql_config_filename = 'config/london_pois_5500'` at the start of this script
-    * For Experiment 2, set `dataset_file = 'london_pois_bbox_100perc.csv'`, `ilquadtrees_dir = 'ilquadtrees_london_pois_bbox'`, `base_dataset_filename = 'data/london_pois_bbox'`, `base_elastic_indexname = 'london_pois_bbox_index'` and `base_postgresql_config_filename = 'config/london_pois_bbox'` at the start of this script
+    * For Experiment 1, set `dataset_file = 'london_pois_5500.csv'`, `ilquadtrees_dir = 'ilquadtrees_london_5500'`, `base_dataset_filename = 'data/london_pois_5500'`, `base_elastic_indexname = 'london_pois_5500_index'` and `base_postgresql_config_filename = 'config/london_pois_5500'` at the start of this script
+    * For Experiment 2, set `dataset_file = 'london_pois_bbox.csv'`, `ilquadtrees_dir = 'ilquadtrees_london_pois_bbox'`, `base_dataset_filename = 'data/london_pois_bbox'`, `base_elastic_indexname = 'london_pois_bbox_index'` and `base_postgresql_config_filename = 'config/london_pois_bbox'` at the start of this script
 * This script writes to files `log_comparison_london_new.txt` (a basic logs file) and `executions_comparison_london.csv` (a log of all query execution times along with their respective query configuration, thus useful for future performance analysis and visualization). 
     * For Experiment 1, rename the output generated CSV file to `executions_comparison_london_experiment1.csv`.
     * For Experiment 2, rename the output generated CSV file to `executions_comparison_london_experiment2.csv`.
@@ -60,11 +60,3 @@ Generate performance comparison visualizations:
 * Follow instructions in notebook `comparing_modules.ipynb`
 
 
-
-## PostgreSQL extension for QQESPM-SQL
-
-We also implemented a PostgreSQL extension in PL/pgSQL to replicate the strategy of QQESPM-SQL internally within the native environment of the PostgreSQL database. The source-code for this extension is in [this repository](https://github.com/viniciuscva/qqespm_postgres_extension).
-
-## License
-
-These algorithms and implementation libraries of QQESPM-Quadtree, QQESPM-Elastic and QQESPM-SQL © 2024 by [Carlos Vinicius A. M. Pontes](https://www.linkedin.com/in/vinicius-alves-mm/) are licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/?ref=chooser-v1).
