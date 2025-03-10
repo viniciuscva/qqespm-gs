@@ -1,6 +1,8 @@
 # QQESPM-GS: A generalized solution for the QQESPM spatio-textual query approach
 
-This repository contains the code implementations for the algorithms proposed in my Master's thesis. The algorithms aim at answering a complex type of geo-textual group query called [QQ-SPM query](https://arxiv.org/abs/2312.08992). The Quantitative and Qualitative Efficient Spatial Pattern Matching Generalized Solution (QQESPM-GS) is our proposed comprehensive approach for handling QQ-SPM queries efficiently across various geospatial technologies. QQESPM-GS consists of three primary solutions. 
+This repository contains the code implementations for the algorithms proposed in the paper. The algorithms aim at answering a complex type of geo-textual group query called QQ-SPM query, which was initially investigated in an [existing work](https://arxiv.org/abs/2312.08992). 
+
+The Quantitative and Qualitative Efficient Spatial Pattern Matching Generalized Solution (QQESPM-GS) is our proposed comprehensive approach for handling QQ-SPM queries efficiently across various geospatial technologies. Such solution is proved to surpass the query time performance of existing solution approches for such query type. QQESPM-GS consists of three primary solutions:
 
 1. QQESPM-Quadtree: an algorithm that utilizes the IL-Quadtree index, memoization techniques, and optimized join ordering to efficiently address QQ-SPM queries through a specialized approach. This library is an ad hoc solution and can be executed without spatial databases or backend GIR systems.
 2. QQESPM-EO: an algorithm that manages the execution of elementary spatial operations in a Geographic Information Retrieval (GIR) system to effectively solve a QQ-SPM query. We showcase QQESPM-EO by using the Elasticsearch as the backend for the elementary spatio-textual operations, culminating in the QQESPM-Elastic library. This library requires Elasticsearch as a dependency.
