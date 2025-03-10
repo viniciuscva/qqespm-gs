@@ -1,4 +1,2 @@
-*.csv
 __pycache__
 .ipynb_checkpoints
-!executions_comparison_london_experiment*.csv
